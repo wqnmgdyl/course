@@ -39,7 +39,7 @@
                              targetPackage="com.kh.server.mapper"
                              type="XMLMAPPER" />
 
-<!--        <table tableName="chapter" domainObjectName="Chapter"/>-->
+        <table tableName="chapter" domainObjectName="Chapter"/>
 <!--        <table tableName="section" domainObjectName="Section"/>-->
 <!--        <table tableName="course" domainObjectName="Course"/>-->
 <!--        <table tableName="course_content" domainObjectName="CourseContent"/>-->

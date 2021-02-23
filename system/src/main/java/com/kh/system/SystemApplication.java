@@ -1,4 +1,4 @@
-package com.kh.system.config;
+package com.kh.system;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
