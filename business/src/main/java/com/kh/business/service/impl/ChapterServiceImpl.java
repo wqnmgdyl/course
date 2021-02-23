@@ -2,11 +2,15 @@ package com.kh.business.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kh.server.domain.Chapter;
+import com.kh.server.dto.ChapterDto;
 import com.kh.server.mapper.ChapterMapper;
 import com.kh.business.service.ChapterService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author han.ke
@@ -16,4 +20,16 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper,Chapter> imple
     @Resource
     private ChapterMapper chapterMapper;
 
+    @Override
+    public List<ChapterDto> listChapterDto() {
+        List<Chapter> chapterList = chapterMapper.selectList(null);
+        List<ChapterDto> chapterDtoList = new ArrayList<>();
+        for (int i = 0; i < chapterList.size(); i++) {
+            Chapter chapter = chapterList.get(i);
+            ChapterDto chapterDto = new ChapterDto();
+            BeanUtils.copyProperties(chapter,chapterDto);
+            chapterDtoList.add(chapterDto);
+        }
+        return chapterDtoList;
+    }
 }

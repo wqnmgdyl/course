@@ -1,4 +1,4 @@
-package com.kh.server.domain;
+package com.kh.server.dto;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("chapter")
-public class Chapter {
+public class ChapterDto {
     @TableId
     private String id;
 
