@@ -77,7 +77,7 @@
 
 <script>
     export default {
-        name: 'App',
+        name: 'login',
     }
     $('body').attr('class', 'login-layout light-login');
 </script>
