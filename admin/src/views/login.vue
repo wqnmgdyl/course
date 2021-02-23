@@ -52,7 +52,8 @@
                                                     </label>
 
                                                     <button type="button"
-                                                            class="width-35 pull-right btn btn-sm btn-primary">
+                                                            class="width-35 pull-right btn btn-sm btn-primary"
+                                                            v-on:click="login()">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">登录</span>
                                                     </button>
@@ -78,6 +79,11 @@
 <script>
     export default {
         name: 'login',
+        methods: {
+            login() {
+                this.$router.push("/admin")
+            }
+        }
     }
     $('body').attr('class', 'login-layout light-login');
 </script>
