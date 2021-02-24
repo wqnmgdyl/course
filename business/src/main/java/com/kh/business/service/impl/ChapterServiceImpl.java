@@ -7,6 +7,7 @@ import com.kh.server.dto.ChapterDto;
 import com.kh.server.dto.PageDto;
 import com.kh.server.mapper.ChapterMapper;
 import com.kh.business.service.ChapterService;
+import com.kh.server.util.CopyUtil;
 import com.kh.server.util.UuidUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -28,13 +29,7 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
         Page<Chapter> page = new Page<>(pageDto.getPage(), pageDto.getSize());
         Page<Chapter> chapterPage = chapterMapper.selectPage(page, null);
         List<Chapter> chapterList = chapterPage.getRecords();
-        List<ChapterDto> chapterDtoList = new ArrayList<>();
-        for (int i = 0; i < chapterList.size(); i++) {
-            Chapter chapter = chapterList.get(i);
-            ChapterDto chapterDto = new ChapterDto();
-            BeanUtils.copyProperties(chapter, chapterDto);
-            chapterDtoList.add(chapterDto);
-        }
+        List<ChapterDto> chapterDtoList = CopyUtil.copyList(chapterList, ChapterDto.class);
         pageDto.setTotal(chapterPage.getTotal());
         pageDto.setList(chapterDtoList);
     }
