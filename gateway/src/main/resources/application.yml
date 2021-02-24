@@ -4,10 +4,14 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: com.kh.system
+        - id: system
           uri: http://127.0.0.1:9001
           predicates:
-            - Path=/com.kh.system/**
+            - Path=/system/**
+        - id: business
+          uri: lb://business
+          predicates:
+            - Path=/business/**
 server:
   port: 9000
 eureka:
