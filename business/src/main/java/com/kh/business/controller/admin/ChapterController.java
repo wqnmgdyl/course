@@ -3,6 +3,7 @@ package com.kh.business.controller.admin;
 import com.kh.business.service.ChapterService;
 import com.kh.server.dto.ChapterDto;
 import com.kh.server.dto.PageDto;
+import com.kh.server.dto.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,16 +21,20 @@ public class ChapterController {
     private ChapterService service;
 
     @RequestMapping("/list")
-    public PageDto list(@RequestBody PageDto pageDto) {
+    public ResponseDto list(@RequestBody PageDto pageDto) {
         log.info("pageDto: -> {}", pageDto);
+        ResponseDto<Object> responseDto = new ResponseDto<>();
         service.listChapter(pageDto);
-        return pageDto;
+        responseDto.setContent(pageDto);
+        return responseDto;
     }
 
     @RequestMapping("/save")
-    public ChapterDto save(@RequestBody ChapterDto chapterDto) {
+    public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         log.info("chapterDto: -> {}", chapterDto);
         service.addChapter(chapterDto);
-        return chapterDto;
+        ResponseDto<Object> responseDto = new ResponseDto<>();
+        responseDto.setContent(chapterDto);
+        return responseDto;
     }
 }
