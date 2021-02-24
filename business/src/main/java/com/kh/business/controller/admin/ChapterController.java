@@ -20,7 +20,7 @@ public class ChapterController {
     @Resource
     private ChapterService service;
 
-    @RequestMapping("/list")
+    @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
         log.info("pageDto: -> {}", pageDto);
         ResponseDto<Object> responseDto = new ResponseDto<>();
@@ -29,12 +29,19 @@ public class ChapterController {
         return responseDto;
     }
 
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         log.info("chapterDto: -> {}", chapterDto);
         service.save(chapterDto);
         ResponseDto<Object> responseDto = new ResponseDto<>();
         responseDto.setContent(chapterDto);
         return responseDto;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseDto delete(@PathVariable String id) {
+        log.info("chapterID -> {}", id);
+        service.removeById(id);
+        return new ResponseDto();
     }
 }

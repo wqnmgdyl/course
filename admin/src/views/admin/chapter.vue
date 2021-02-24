@@ -1,12 +1,12 @@
 <template>
     <div>
         <p>
-        <button v-on:click="add()" class="btn btn-white btn-default btn-round">
-            <i class="ace-icon fa fa-edit"></i>
-            新增
-        </button>
+            <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+                <i class="ace-icon fa fa-edit"></i>
+                新增
+            </button>
             &nbsp;
-        <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
+            <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
                 <i class="ace-icon fa fa-refresh"></i>
                 刷新
             </button>
@@ -34,7 +34,7 @@
                         <button v-on:click="edit(chapter)" class="btn btn-xs btn-info">
                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                         </button>
-                        <button class="btn btn-xs btn-danger">
+                        <button v-on:click="del(chapter.id)" class="btn btn-xs btn-danger">
                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                         </button>
                     </div>
@@ -83,7 +83,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">表单</h4>
                     </div>
                     <div class="modal-body">
@@ -97,7 +98,8 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">课程ID</label>
                                 <div class="col-sm-10">
-                                    <input v-model="chapter.courseId" type="text" class="form-control" placeholder="课程ID">
+                                    <input v-model="chapter.courseId" type="text" class="form-control"
+                                           placeholder="课程ID">
                                 </div>
                             </div>
                         </form>
@@ -114,6 +116,7 @@
 
 <script>
     import Pagination from "../../components/pagination.vue"
+
     export default {
         components: {Pagination},
         name: 'chapter',
@@ -151,7 +154,7 @@
                         console.log("查询大章列表结果：", response);
                         let resp = response.data;
                         _this.chapters = resp.content.list;
-                        _this.$refs.pagination.render(page,resp.content.total)
+                        _this.$refs.pagination.render(page, resp.content.total)
                     })
             },
 
@@ -161,12 +164,71 @@
                     .then((response) => {
                         console.log("保存大章列表结果：", response);
                         let resp = response.data;
-                        if(resp.success){
+                        if (resp.success) {
                             $("#form_modal").modal("hide");
                             _this.list(1);
+                            toast.success("保存成功")
                         }
                     })
-            }
+            },
+
+            del(id) {
+                let _this = this;
+                Swal.fire({
+                    title: '确认删除',
+                    text: '删除后不可恢复，确认删除？',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '确认！',
+                }).then((result) => {
+                        if (result.value) {
+                            _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/' + id)
+                                .then((response) => {
+                                    console.log("删除大章列表结果：", response);
+                                    let resp = response.data;
+                                    if (resp.success) {
+                                        _this.list(1);
+                                        toast.success("删除成功")
+                                    }
+                                })
+                        }
+                    }
+                )
+
+            },
+
         }
     }
+
+    let toast = {
+        success: function (msg) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: msg,
+                showConfirmButton: false,
+                timer: 3000
+            })
+        },
+        error: function (msg) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: msg,
+                showConfirmButton: false,
+                timer: 3000
+            })
+        },
+        warning: function (msg) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: msg,
+                showConfirmButton: false,
+                timer: 3000
+            })
+        }
+    };
 </script>
