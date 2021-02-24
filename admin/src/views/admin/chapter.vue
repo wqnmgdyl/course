@@ -1,12 +1,19 @@
 <template>
     <div>
         <p>
-        <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
-            <i class="ace-icon fa fa-refresh"></i>
-            刷新
+        <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+            <i class="ace-icon fa fa-edit"></i>
+            新增
         </button>
+            &nbsp;
+        <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
+                <i class="ace-icon fa fa-refresh"></i>
+                刷新
+            </button>
         </p>
+
         <pagination ref="pagination" v-bind:list="list"></pagination>
+
         <table id="simple-table" class="table  table-bordered table-hover">
             <thead>
             <tr>
@@ -79,6 +86,38 @@
             </tr>
             </tbody>
         </table>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">表单</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">名称</label>
+                                <div class="col-sm-10">
+                                    <input v-model="chapter.name" type="text" class="form-control" placeholder="名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">课程ID</label>
+                                <div class="col-sm-10">
+                                    <input v-model="chapter.courseId" type="text" class="form-control" placeholder="课程ID">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button v-on:click="save()" type="button" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -89,6 +128,7 @@
         name: 'chapter',
         data: function () {
             return {
+                chapter: {},
                 chapters: []
             }
         },
@@ -98,6 +138,11 @@
             _this.list(1);
         },
         methods: {
+            add() {
+                let _this = this;
+                $(".modal").modal("show");
+            },
+
             list(page) {
                 let _this = this;
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/list', {
@@ -108,6 +153,14 @@
                         console.log("查询大章列表结果：", response);
                         _this.chapters = response.data.list;
                         _this.$refs.pagination.render(page,response.data.total)
+                    })
+            },
+
+            save(page) {
+                let _this = this;
+                _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save', _this.chapter)
+                    .then((response) => {
+                        console.log("保存大章列表结果：", response);
                     })
             }
         }

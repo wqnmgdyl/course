@@ -2,6 +2,7 @@ package com.kh.business.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kh.server.domain.Chapter;
+import com.kh.server.dto.ChapterDto;
 import com.kh.server.dto.PageDto;
 
 
@@ -11,7 +12,12 @@ import com.kh.server.dto.PageDto;
  */
 public interface ChapterService extends IService<Chapter> {
     /**
-     * 查询所有chapterDto
+     * 查询所有chapter
      */
-    void listChapterDto(PageDto pageDto);
+    void listChapter(PageDto pageDto);
+
+    /**
+     * 添加chapter
+     */
+    void addChapter(ChapterDto chapterDto);
 }

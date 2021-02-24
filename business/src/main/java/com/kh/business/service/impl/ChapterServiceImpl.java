@@ -7,6 +7,7 @@ import com.kh.server.dto.ChapterDto;
 import com.kh.server.dto.PageDto;
 import com.kh.server.mapper.ChapterMapper;
 import com.kh.business.service.ChapterService;
+import com.kh.server.util.UuidUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,12 @@ import java.util.List;
  * @author han.ke
  */
 @Service
-public class ChapterServiceImpl extends ServiceImpl<ChapterMapper,Chapter> implements ChapterService {
+public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> implements ChapterService {
     @Resource
     private ChapterMapper chapterMapper;
 
     @Override
-    public void listChapterDto(PageDto pageDto) {
+    public void listChapter(PageDto pageDto) {
         Page<Chapter> page = new Page<>(pageDto.getPage(), pageDto.getSize());
         Page<Chapter> chapterPage = chapterMapper.selectPage(page, null);
         List<Chapter> chapterList = chapterPage.getRecords();
@@ -31,10 +32,18 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper,Chapter> imple
         for (int i = 0; i < chapterList.size(); i++) {
             Chapter chapter = chapterList.get(i);
             ChapterDto chapterDto = new ChapterDto();
-            BeanUtils.copyProperties(chapter,chapterDto);
+            BeanUtils.copyProperties(chapter, chapterDto);
             chapterDtoList.add(chapterDto);
         }
         pageDto.setTotal(chapterPage.getTotal());
         pageDto.setList(chapterDtoList);
+    }
+
+    @Override
+    public void addChapter(ChapterDto chapterDto) {
+        chapterDto.setId(UuidUtil.getShortUuid());
+        Chapter chapter = new Chapter();
+        BeanUtils.copyProperties(chapterDto, chapter);
+        this.save(chapter);
     }
 }
