@@ -9,6 +9,7 @@ import com.kh.server.mapper.ChapterMapper;
 import com.kh.business.service.ChapterService;
 import com.kh.server.util.CopyUtil;
 import com.kh.server.util.UuidUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +35,21 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
     }
 
     @Override
-    public void addChapter(ChapterDto chapterDto) {
-        chapterDto.setId(UuidUtil.getShortUuid());
-        Chapter chapter = new Chapter();
-        BeanUtils.copyProperties(chapterDto, chapter);
+    public void save(ChapterDto chapterDto) {
+        Chapter chapter = CopyUtil.copy(chapterDto, Chapter.class);
+        if(StringUtils.isEmpty(chapterDto.getId())) {
+            this.insert(chapter);
+        } else {
+            this.update(chapter);
+        }
+    }
+
+    private void insert(Chapter chapter) {
+        chapter.setId(UuidUtil.getShortUuid());
         this.save(chapter);
+    }
+
+    private void update(Chapter chapter) {
+        this.updateById(chapter);
     }
 }

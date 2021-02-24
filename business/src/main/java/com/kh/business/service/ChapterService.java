@@ -19,5 +19,5 @@ public interface ChapterService extends IService<Chapter> {
     /**
      * 添加chapter
      */
-    void addChapter(ChapterDto chapterDto);
+    void save(ChapterDto chapterDto);
 }

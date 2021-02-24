@@ -32,7 +32,7 @@ public class ChapterController {
     @RequestMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         log.info("chapterDto: -> {}", chapterDto);
-        service.addChapter(chapterDto);
+        service.save(chapterDto);
         ResponseDto<Object> responseDto = new ResponseDto<>();
         responseDto.setContent(chapterDto);
         return responseDto;
