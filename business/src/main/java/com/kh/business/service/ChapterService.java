@@ -17,7 +17,7 @@ public interface ChapterService extends IService<Chapter> {
     void listChapter(PageDto pageDto);
 
     /**
-     * 添加chapter
+     * id有值更新，无值新增
      */
     void save(ChapterDto chapterDto);
 }

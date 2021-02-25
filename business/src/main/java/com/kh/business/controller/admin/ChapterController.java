@@ -22,6 +22,11 @@ public class ChapterController {
     @Resource
     private ChapterService service;
 
+    /**
+     * 列表查询
+     * @param pageDto
+     * @return
+     */
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
         log.info("pageDto: -> {}", pageDto);
@@ -31,6 +36,11 @@ public class ChapterController {
         return responseDto;
     }
 
+    /**
+     * id有值时更新，无值时新增
+     * @param chapterDto
+     * @return
+     */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         log.info("chapterDto: -> {}", chapterDto);
@@ -40,6 +50,11 @@ public class ChapterController {
         return responseDto;
     }
 
+    /**
+     * 根据id删除
+     * @param id
+     * @return
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id) {
         log.info("chapterID -> {}", id);
