@@ -11,7 +11,6 @@ import com.kh.server.util.CopyUtil;
 import com.kh.server.util.UuidUtil;
 import com.kh.server.util.ValidatorUtil;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
