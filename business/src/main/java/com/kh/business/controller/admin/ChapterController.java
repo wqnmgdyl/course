@@ -23,7 +23,7 @@ public class ChapterController {
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
         log.info("pageDto: -> {}", pageDto);
-        ResponseDto<Object> responseDto = new ResponseDto<>();
+        ResponseDto responseDto = new ResponseDto<>();
         service.listChapter(pageDto);
         responseDto.setContent(pageDto);
         return responseDto;
@@ -33,7 +33,7 @@ public class ChapterController {
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         log.info("chapterDto: -> {}", chapterDto);
         service.save(chapterDto);
-        ResponseDto<Object> responseDto = new ResponseDto<>();
+        ResponseDto responseDto = new ResponseDto<>();
         responseDto.setContent(chapterDto);
         return responseDto;
     }

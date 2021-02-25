@@ -9,6 +9,7 @@ import com.kh.server.mapper.ChapterMapper;
 import com.kh.business.service.ChapterService;
 import com.kh.server.util.CopyUtil;
 import com.kh.server.util.UuidUtil;
+import com.kh.server.util.ValidatorUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,9 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
 
     @Override
     public void save(ChapterDto chapterDto) {
+        ValidatorUtil.require(chapterDto.getName(),"名称");
+        ValidatorUtil.require(chapterDto.getCourseId(),"课程ID");
+        ValidatorUtil.length(chapterDto.getCourseId(),"课程ID",1,8);
         Chapter chapter = CopyUtil.copy(chapterDto, Chapter.class);
         if(StringUtils.isEmpty(chapterDto.getId())) {
             this.insert(chapter);
