@@ -1,9 +1,7 @@
 package com.kh.generator.server;
 
 import com.kh.generator.util.FreemarkerUtil;
-import freemarker.template.TemplateException;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,16 +10,20 @@ import java.util.Map;
  * @date 2021/4/28 14:10
  */
 public class ServerGenerator {
-
+    static String MODULE = "business";
     static String toServicePath = "business\\src\\main\\java\\com\\kh\\business\\service\\impl\\";
-    static String toControllerPath = "business\\src\\main\\java\\com\\kh\\business\\controller\\admin\\";
+    static String toControllerPath = MODULE + "\\src\\main\\java\\com\\kh\\" + MODULE + "\\controller\\admin\\";
 
     public static void main(String[] args) throws Exception {
         String Domain = "Section";
         String domain = "section";
+        String tableNameCn = "小节";
+        String module = MODULE;
         Map<Object, Object> map = new HashMap<>();
         map.put("Domain", Domain);
         map.put("domain", domain);
+        map.put("tableNameCn", tableNameCn);
+        map.put("module", module);
 
         //生成service
         FreemarkerUtil.initConfig("service.ftl");

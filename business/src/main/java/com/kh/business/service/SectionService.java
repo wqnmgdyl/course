@@ -2,7 +2,6 @@ package com.kh.business.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kh.server.domain.Section;
-import com.kh.server.dto.ChapterDto;
 import com.kh.server.dto.PageDto;
 import com.kh.server.dto.SectionDto;
 
