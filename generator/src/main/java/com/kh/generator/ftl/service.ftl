@@ -15,7 +15,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+<#list typeSet as type>
+    <#if type=='Date'>
+        import java.util.Date;
+    </#if>
+</#list>
 /**
  * @author han.ke
  */
@@ -27,7 +31,13 @@ public class ${Domain}ServiceImpl extends ServiceImpl<${Domain}Mapper, ${Domain}
     @Override
     public void list${Domain}(PageDto pageDto) {
         Page<${Domain}> page = new Page<>(pageDto.getPage(), pageDto.getSize());
-        Page<${Domain}> ${domain}Page = ${domain}Mapper.selectPage(page, null);
+        <#list fieldList as field>
+            <#if field.nameHump=='sort'>
+        QueryWrapper<${Domain}> wrapper = new QueryWrapper<>();
+        wrapper.orderByAsc("sort");
+            </#if>
+        </#list>
+        Page<${Domain}> ${domain}Page = ${domain}Mapper.selectPage(page, wrapper);
         List<${Domain}> ${domain}List = ${domain}Page.getRecords();
         List<${Domain}Dto> ${domain}DtoList = CopyUtil.copyList(${domain}List, ${Domain}Dto.class);
         pageDto.setTotal(${domain}Page.getTotal());
@@ -38,11 +48,13 @@ public class ${Domain}ServiceImpl extends ServiceImpl<${Domain}Mapper, ${Domain}
     public void save(${Domain}Dto ${domain}Dto) {
         //保存校验
         <#list fieldList as field>
+            <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt" && field.nameHump!="sort">
             <#if !field.nullAble>
                 ValidatorUtil.require(${domain}Dto.get${field.nameBigHump}(), "${field.nameCn}");
             </#if>
             <#if (field.length > 0)>
                 ValidatorUtil.length(${domain}Dto.get${field.nameBigHump}(), "${field.nameCn}", 1, ${field.length});
+            </#if>
             </#if>
         </#list>
         ${Domain} ${domain} = CopyUtil.copy(${domain}Dto, ${Domain}.class);

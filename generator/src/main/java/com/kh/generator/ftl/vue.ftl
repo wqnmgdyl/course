@@ -89,12 +89,14 @@
                     <div class="modal-body">
                         <form class="form-horizontal">
                             <#list fieldList as field>
+                                <#if field.name!="id" && field.nameHump!="createdAt" && field.nameHump!="updatedAt">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">${field.nameCn}</label>
                                     <div class="col-sm-10">
                                         <input v-model="${domain}.${field.nameHump}" type="text" class="form-control">
                                     </div>
                                 </div>
+                                </#if>
                             </#list>
                         </form>
                     </div>

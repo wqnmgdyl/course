@@ -1,5 +1,6 @@
 package com.kh.business.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kh.server.domain.Section;
@@ -27,7 +28,9 @@ public class SectionServiceImpl extends ServiceImpl<SectionMapper, Section> impl
     @Override
     public void listSection(PageDto pageDto) {
         Page<Section> page = new Page<>(pageDto.getPage(), pageDto.getSize());
-        Page<Section> sectionPage = sectionMapper.selectPage(page, null);
+        QueryWrapper<Section> wrapper = new QueryWrapper<>();
+        wrapper.orderByAsc("sort");
+        Page<Section> sectionPage = sectionMapper.selectPage(page, wrapper);
         List<Section> sectionList = sectionPage.getRecords();
         List<SectionDto> sectionDtoList = CopyUtil.copyList(sectionList, SectionDto.class);
         pageDto.setTotal(sectionPage.getTotal());

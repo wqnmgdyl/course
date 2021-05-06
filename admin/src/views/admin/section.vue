@@ -113,12 +113,6 @@
                     <div class="modal-body">
                         <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">ID</label>
-                                    <div class="col-sm-10">
-                                        <input v-model="section.id" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-sm-2 control-label">标题</label>
                                     <div class="col-sm-10">
                                         <input v-model="section.title" type="text" class="form-control">
@@ -158,18 +152,6 @@
                                     <label class="col-sm-2 control-label">顺序</label>
                                     <div class="col-sm-10">
                                         <input v-model="section.sort" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">创建时间</label>
-                                    <div class="col-sm-10">
-                                        <input v-model="section.createdAt" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">修改时间</label>
-                                    <div class="col-sm-10">
-                                        <input v-model="section.updatedAt" type="text" class="form-control">
                                     </div>
                                 </div>
                         </form>
