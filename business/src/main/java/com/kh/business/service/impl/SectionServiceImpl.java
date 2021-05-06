@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kh.server.domain.Section;
 import com.kh.server.dto.SectionDto;
 import com.kh.server.dto.PageDto;
+import com.kh.server.enums.SectionChargeEnum;
 import com.kh.server.mapper.SectionMapper;
 import com.kh.business.service.SectionService;
 import com.kh.server.util.CopyUtil;
@@ -52,6 +53,7 @@ public class SectionServiceImpl extends ServiceImpl<SectionMapper, Section> impl
 
     private void insert(Section section) {
         section.setId(UuidUtil.getShortUuid());
+        section.setCharge(SectionChargeEnum.CHARGE.getCode());
         this.save(section);
     }
 
