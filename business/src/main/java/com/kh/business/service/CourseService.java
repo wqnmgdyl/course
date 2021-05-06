@@ -1,24 +1,25 @@
 package com.kh.business.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.kh.server.domain.Section;
+import com.kh.server.domain.Course;
+import com.kh.server.dto.CourseDto;
 import com.kh.server.dto.PageDto;
-import com.kh.server.dto.SectionDto;
 
 /**
  * @author ly
- * @date 2021/4/28 14:26
+ * @date 2021/5/6 16:22
  */
-public interface SectionService extends IService<Section> {
+public interface CourseService extends IService<Course> {
+
     /**
      * 查询所有chapter
      * @param pageDto
      */
-    void listSection(PageDto pageDto);
+    void listCourse(PageDto pageDto);
 
     /**
      * id有值更新，无值新增
-     * @param sectionDto
+     * @param courseDto
      */
-    void save(SectionDto sectionDto);
+    void save(CourseDto courseDto);
 }
