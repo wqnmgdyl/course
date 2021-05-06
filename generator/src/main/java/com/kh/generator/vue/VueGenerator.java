@@ -1,4 +1,4 @@
-package com.kh.generator.server;
+package com.kh.generator.vue;
 
 import com.kh.generator.util.DbUtil;
 import com.kh.generator.util.Field;
@@ -10,15 +10,9 @@ import org.dom4j.io.SAXReader;
 import java.io.File;
 import java.util.*;
 
-/**
- * @author ly
- * @date 2021/4/28 14:10
- */
-public class ServerGenerator {
+public class VueGenerator {
     static String MODULE = "business";
-    static String toDtoPath = "server\\src\\main\\java\\com\\kh\\server\\dto\\";
-    static String toServicePath = "business\\src\\main\\java\\com\\kh\\business\\service\\impl\\";
-    static String toControllerPath = MODULE + "\\src\\main\\java\\com\\kh\\" + MODULE + "\\controller\\admin\\";
+    static String toVuePath = "admin\\src\\views\\admin\\";
     static String generatorConfigPath = "server\\src\\main\\resources\\generator\\generatorConfig.xml";
 
     public static void main(String[] args) throws Exception {
@@ -54,17 +48,9 @@ public class ServerGenerator {
         map.put("fieldList", fieldList);
         map.put("typeSet", typeSet);
 
-        //生成dto
-        FreemarkerUtil.initConfig("dto.ftl");
-        FreemarkerUtil.generator(toDtoPath + Domain + "Dto.java", map);
-
-        //生成service
-        FreemarkerUtil.initConfig("service.ftl");
-        FreemarkerUtil.generator(toServicePath + Domain + "ServiceImpl.java", map);
-
-        //生成controller
-        FreemarkerUtil.initConfig("controller.ftl");
-        FreemarkerUtil.generator(toControllerPath + Domain + "Controller.java", map);
+        // 生成vue
+        FreemarkerUtil.initConfig("vue.ftl");
+        FreemarkerUtil.generator(toVuePath + domain + ".vue", map);
     }
 
     /**

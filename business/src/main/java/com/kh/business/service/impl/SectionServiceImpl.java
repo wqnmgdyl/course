@@ -37,8 +37,6 @@ public class SectionServiceImpl extends ServiceImpl<SectionMapper, Section> impl
     @Override
     public void save(SectionDto sectionDto) {
         ValidatorUtil.require(sectionDto.getTitle(),"标题");
-        ValidatorUtil.require(sectionDto.getId(),"小节ID");
-        ValidatorUtil.length(sectionDto.getId(),"小节ID",1,8);
         Section section = CopyUtil.copy(sectionDto, Section.class);
         if(StringUtils.isEmpty(sectionDto.getId())) {
             this.insert(section);
