@@ -48,7 +48,7 @@
                     <td>{{section.chapterId}}</td>
                     <td>{{section.video}}</td>
                     <td>{{section.time}}</td>
-                    <td>{{CHARGE | optionKV(section.charge)}}</td>
+                    <td>{{SECTION_CHARGE | optionKV(section.charge)}}</td>
                     <td>{{section.sort}}</td>
                     <td>{{section.createdAt}}</td>
                     <td>{{section.updatedAt}}</td>
@@ -173,7 +173,7 @@
 
     export default {
         components: {Pagination},
-        name: 'section',
+        name: 'business-section',
         data: function () {
             return {
                 section: {},
